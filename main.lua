@@ -39,7 +39,6 @@ if done then
     -- Tab creation
 
     local MainTab = Window:CreateTab("Main", 4483362458)
-    local MainSection = MainTab:CreateSection("Home")
 
     local WeaponsTab = Window:CreateTab("Weapons", 4483362458)
     local WeaponsSection = WeaponsTab:CreateSection("Weapon Options")
@@ -96,8 +95,8 @@ if done then
         Image = nil,
         Actions = {}, -- Notification Buttons
      })
-
      -- Main Tab
+     local MainSection = MainTab:CreateSection("Main")
 
      local InfiniJump = MainTab:CreateButton({
         Name = "Infinite Jump",
@@ -153,14 +152,19 @@ if done then
      })
 
      local Coords = MainTab:CreateButton({
-        Name = "Print Coords",
+        Name = "Copy Coords",
         Callback = function()
             local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
             print(plr.CFrame)
 
+            local ClipboardService = game:GetService("ClipboardService")
+            ClipboardService.OnCopy = function(cut)
+                return plr.CFrame;
+            ClipboardService.OnPaste:connect(function(value)
+            
             Rayfield:Notify({
                 Title = "Elevated Cheats",
-                Content = "Successfully printed out Coords.",
+                Content = "Successfully copied your current Coords.",
                 Duration = 5.5,
                 Image = nil,
                 Actions = {}, -- Notification Buttons
@@ -193,6 +197,10 @@ if done then
             end
         end,
      })
+
+
+     -- Teleport Tab
+     local MainSection = MainTab:CreateSection("Teleports")
 
      -- Visuals Tab
 
